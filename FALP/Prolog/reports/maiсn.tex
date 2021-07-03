@@ -1,0 +1,434 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[warn]{mathtext}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{latexsym}
+\usepackage{svg}
+\usepackage{indentfirst}
+\usepackage{pgfplots}
+\usepackage{longtable}
+\pgfplotsset{compat=1.9}
+
+\usepackage{listings}
+
+\usepackage{color}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{titlesec, blindtext, color}
+\usepackage{tabularx}
+\usepackage{subcaption}
+\usepackage{tikz,pgfplots}
+
+
+\lstset{ %
+	language=Prolog,                % Язык программирования 
+	numbers=left,                   % С какой стороны нумеровать
+	stepnumber=1,                   % Шаг между линиями. Если 1, то будет пронумерована каждая строка
+	frame=single,	
+}
+
+\geometry{pdftex, left = 2cm, right = 2cm, top = 2.5cm, bottom = 2.5cm}
+\begin{document}
+	\thispagestyle{empty}
+	\noindent \begin{minipage}{0.15\textwidth}
+		\includegraphics[width=\linewidth]{b_logo}
+	\end{minipage}
+	\noindent\begin{minipage}{0.9\textwidth}\centering
+		\textbf{Министерство науки и высшего образования Российской Федерации}\\
+		\textbf{Федеральное государственное бюджетное образовательное учреждение высшего образования}\\
+		\textbf{«Московский государственный технический университет имени Н.Э.~Баумана}\\
+		\textbf{(национальный исследовательский университет)»}\\
+		\textbf{(МГТУ им. Н.Э.~Баумана)}
+	\end{minipage}
+	\noindent\rule{18cm}{3pt}
+	\newline\newline
+	\noindent ФАКУЛЬТЕТ $\underline{\textbf{«ИНФОРМАТИКА И СИСТЕМЫ УПРАВЛЕНИЯ»}}$ \newline\newline
+	\noindent КАФЕДРА $\underline{\textbf{«ПРОГРАММНОЕ ОБЕСПЕЧЕНИЕ ЭВМ И ИНФОРМАЦИОННЫЕ}}$\newline\newline $\underline{\textbf{ТЕХНОЛОГИИ»(ИУ7)}}$\newline\newline
+	\noindent НАПРАВЛЕНИЕ ПОДГОТОВКИ $\underline{\textbf{09.03.04 ПРОГРАММНАЯ ИНЖЕНЕРИЯ}}$\newline\newline\newline\newline\newline\newline\newline
+	\begin{center}
+		\begin{flushright}
+			\Large\textbf{ОТЧЕТ}\newline
+			\Large\textbf{по лабораторным работам № 11, 12, 13}\newline
+		\end{flushright}
+	\end{center}
+	\noindent\textbf{Название:} $\underline{\text{Базис Prolog}}$\newline\newline
+	\noindent\textbf{Дисциплина:} $\underline{\text{Функциональное и логическое программирование}}$\newline\newline\newline\newline\newline\newline\newline\newline
+	\begin{tabular}{lcp{5em}lp{2em}l}
+		\noindent\textbf{Студент} &  $\underline{\text{ИУ7-62Б~~}}$ &             &\hspace{1cm} & & $\underline{\text{Е.В.Герасименко}}$ \\\cline{4-3}
+		& (Группа) & &(Подпись,дата)  & & (И.О.Фамилия) \\
+		& & & & &\\
+		\noindent\textbf{Преподаватель} &  & &\hspace{1cm} & &$\underline{\text{Н.Б.Толпинская}}$ \\\cline{4-3} 
+		&  & & (Подпись,дата)  & &(И.О.Фамилия) \\
+	\end{tabular}
+	\begin{center}
+		\vfill
+		Москва,\the\year
+	\end{center}
+	\newpage
+
+
+\section{Задачи лабораторной работы №11}
+\subsection{Разработать свою программу - «Телефонный справочник».}
+
+\begin{lstlisting}[language=Prolog]
+domains
+	Tel, Name, Surname = symbol.
+
+predicates
+	who(Tel, Name, Surname).
+
+	
+clauses
+	who("8963636328", "Katty", "G").
+	who("8962626421", "Vit", "Zol").
+	who("8955534212", "Sanya", "Minakova").
+	who("8983753469", "Ktoto", "Net").
+	who("8956542516", "Katty", "F").
+	
+goal
+	who(Tel, "Katty", Surname).
+\end{lstlisting}
+
+\section{Задачи лабораторной работы №12}
+\subsection{Составить программу, с помощью которой можно определить, например, множество студентов, обучающихся в ВУЗе.}
+
+\subsubsection{Исходная база данных сформирована только с помощью фактов}
+\begin{lstlisting}[language=Prolog]
+domains
+	Name, University = symbol.
+	
+predicates
+	student(Name, University).
+	
+clauses
+	student("Denis Kolosov", "BMSTU").
+	student("Sanya Zakharov", "MSU").
+	student("Katty G", "Yale").
+	student("Max Kryat", "BMSTU").
+	student("Dima Blokhin", "BMSTU").
+	
+goal
+	student(Name, "BMSTU").
+\end{lstlisting}
+\clearpage
+\subsubsection{Исходная база данных сформирована с использованием правил}
+\begin{lstlisting}[language=Prolog]
+domains 
+    Name, Surname, Group, University = symbol. 
+
+predicates 
+    student(Name, Surname, Group, University).
+    all_students_in_university(Name, Surname, University) 
+
+clauses 
+    student("Denis","Kolosov" ,"iu7-62b", "BMSTU"). 
+    student("Max","Kryat" ,"iu7-62b", "BMSTU"). 
+    student("Dima","Blokhin" ,"iu7-62b", "BMSTU"). 
+    student("Sanya", "Zakharov","iu7-61b", "BMSTU"). 
+    student("Katty", "G","iu7-62b", "BMSTU"). 
+    student("Vanya","Ivanov" ,"rk8-63b", "MSU"). 
+    student("Vera","Love" ,"sm5-23b", "MSU"). 
+    student("Sanya","Zakharov" ,"mt2-33b", "MSU"). 
+    all_students_in_university(A, B, C) :- student(A, B, _, C). 
+
+
+goal 
+    %student(Name,Surname,Group, "BMSTU"). 
+    %student(Name,Surname,"iu7-62b", "BMSTU"). 
+    all_students_in_university(Name,Surname,"MSU").
+\end{lstlisting}
+\quad 1) Система пытается найти, используя базу знаний, такие значения Name, Surname, Group при которых на поставленный вопрос «в составном терме student: University == значение?» можно дать ответ «Да».
+
+2) Система пытается найти, используя базу знаний, такие значения Name, Surname при которых на поставленный вопрос «в составном терме student: University == значение и Group == значение?» можно дать ответ «Да».
+
+3)Система пытается найти, используя базу знаний, такие значения Name, Surname при которых на поставленный вопрос «в составном терме all\_students\_in\_university University == значение University из student?» можно дать ответ «Да».
+
+\section{Задание}
+
+\quad Составить программу, т.е. модель предметной области – базу знаний, объединив в ней информацию – знания:
+\begin{itemize}
+	\item «Телефонный справочник»: Фамилия, №тел, Адрес – структура (Город, Улица, №дома, №кв);
+	\item «Автомобили»: Фамилия владельца, Марка, Цвет, Стоимость, и др.;
+	\item «Вкладчики банков»: Фамилия, Банк, счет, сумма, др.
+\end{itemize}
+
+Владелец может иметь несколько телефонов, автомобилей, вкладов (Факты).
+Используя правила, обеспечить возможность поиска:
+\begin{enumerate}
+	\item а) По № телефона найти: Фамилию, Марку автомобиля, Стоимость автомобиля (может быть несколько),
+	в) Используя сформированное в пункте а) правило, по № телефона найти: только Марку автомобиля (автомобилей может быть несколько),
+	\item Используя простой, не составной вопрос: по Фамилии (уникальна в городе, но в разных городах есть однофамильцы) и Городу проживания найти: Улицу проживания, Банки, в которых есть вклады и №телефона.
+\end{enumerate}
+Для задания1 и задания2: 
+Для одного из вариантов ответов, и для а) и для в), описать словесно порядок поиска ответа на вопрос, указав, как выбираются знания, и, при этом, для каждого этапа унификации, выписать подстановку – наибольший общий унификатор, и соответствующие примеры термов.
+
+
+\begin{lstlisting}[language=Prolog]
+domains
+surname, brand, color, bank, street, city  = symbol.
+phone_number = string.
+price, sum = real.
+account, home, flat = integer.
+address = address(city, street, home, flat).
+
+predicates
+car_by_number(phone_number, surname, brand, price).
+info_by_surname_city(surname, city, street, bank,  phone_number).
+car_brand_by_number(phone_number, brand).
+
+phone_record(surname,  phone_number, address).
+car(surname, brand, color, price).
+depositor(surname, bank, account, sum).
+
+clauses
+phone_record(Kolosov,   ``89675849301``, 
+address(moscow, Pushkina, 5, 61)).
+phone_record(Kryat, ``85886893892``, 
+address(balashiha, Pervomay, 11, 89)).
+phone_record(Blohin,  ``89111234564``, 
+address(mytishi, Red, 20, 27)).
+phone_record(Popov,  ``89432910021``, 
+address(voronezh, baptistov, 7, 30)).
+
+car(Kolosov, audi, grey, 4500000).
+car(Kryat, porshe, blue, 7500000).
+car(Blohin, BMW, dark, 5600000).
+car(Popov, merseders, pink, 8000000).
+
+depositor(Kolosov, tinkoff, 56, 100000).
+depositor(Kryat, vtb, 24, 200000).
+depositor(Blohin, sber, 30, 175000).
+depositor(Popov, vtb, 77, 500000).
+
+
+car_by_number(Phone_number, Surname, Brand, Price) :- 
+phone_record(Surname, Phone_number, _), 
+car(Surname, Brand, _, Price).
+
+info_by_surname_city(Surname, City, Street, Bank, Phone_number) :-
+phone_record(Surname,Phone_number,address(City, Street, _, _)),
+depositor(Surname, Bank,_, _).
+
+car_brand_by_number(Phone_number, Brand) :- 
+car_by_number(Phone_number, _, Brand, _).   
+
+
+goal
+car_brand_by_number(``89675849301``, Brand).
+%info_by_surname_city(Kolosov, City, Street, Bank, Phone_number).
+%car_by_number(``89675849301``, Surname, Brand, Price).
+\end{lstlisting}
+
+
+\quad Для car\_by\_number(``89675849301``, Surname, Brand, Price).
+
+\begin{longtable}{|>{\hspace{0pt}}m{0.04\linewidth}|>{\hspace{0pt}}m{0.536\linewidth}|>{\hspace{0pt}}m{0.365\linewidth}|} 
+	\hline
+	№ шага & Сравниваемые термы;результат;подстановка(если есть)                                                                                                                                                                                                                            & Дальнейшие действия: прямой ход или                                                                                                       \endfirsthead 
+	\hline
+	1      & car\_by\_number(``89675849301``, Surname, Brand, Price) = phone\_record(Kolosov, ``89675849301``, address(moscow, Pushkina, 5, 61))\par{}Унификация неуспешна - функторы не равны                                                                             & Резольвента:  car\_by\_number(``89675849301``, Surname, Brand, Price)\par{} \par{}Переход к следуюшему предложению                     \\ 
+	\hline
+	2      & …                                                                                                                                                                                                                                                                              & …                                                                                                                                             \\ 
+	\hline
+	3      &  car\_by\_number(``89675849301``, Surname, Brand, Price) = car(Kolosov, audi, grey, 4500000)\par{}Унификация неуспешна - функторы не равны                                                                                                                                 &  \par{}Переход к следуюшему предложению                                                                                                   \\ 
+	\hline
+	4      & …                                                                                                                                                                                                                                                                              & …                                                                                                                                             \\ 
+	\hline
+	5      &  car\_by\_number(``89675849301``, Surname, Brand, Price) = depositor(Kolosov, tinkoff, 56, 100000)\par{}Унификация неуспешна - функторы не равны                                                                                                                           &  \par{}Переход к следуюшему предложению                                                                                                   \\ 
+	\hline
+	6      & …                                                                                                                                                                                                                                                                              & ….                                                                                                                                            \\ 
+	\hline
+	7      &  car\_by\_number(``89675849301``, Surname, Brand, Price) =  car\_by\_number(Phone\_number, Surname, Brand, Price)\par{}Унификация успешна\par{}Подстановка: \{Phone\_number=``89675849301``, Surname=Surname, Brand=Brand, Price=Price\}                                       & Резольвента:\par{}phone\_record(Surname, ``89675849301``, \_), car(Surname, Brand, \_, Price)\par{}Прямой ход                         \\ 
+	\hline
+	8      & phone\_record(Surname, ``89675849301``, \_) = phone\_record(Kolosov, ``89675849301``, address(moscow, Pushkina, 5, 61))\par{}Унификация успешна\par{}Подстановка: \{Surname=Kolosov, Phone\_number=``89675849301``, Brand=Brand, Price=Price\} & Резольвента: car(Kolosov, Brand, \_, Price)\par{}Прямой ход                                                                                   \\ 
+	\hline
+	9      & car(Kolosov, Brand, \_, Price) = phone\_record(Kolosov, ``89675849301``, address(moscow, Pushkina, 5, 61))\par{}Унификация неуспешна - функторы не равны                                                                                                          &  \par{}Переход к следуюшему предложению                                                                                                   \\ 
+	\hline
+	10     & …                                                                                                                                                                                                                                                                              & …                                                                                                                                             \\ 
+	\hline
+	11     & car(Kolosov, Brand, \_, Price) = car(Kolosov, audi, grey, 4500000)\par{}Унификация успешна\par{}Подстановка: \{Surname=Kolosov, Phone\_number=``89675849301``, Brand=audi, Price=4500000\}                                                                         & Вывод: Surname=Kolosov, Phone\_number=``89675849301``, Brand=audi, Price=4500000\par{} \par{}Переход к следуюшему предложению  \\ 
+	\hline
+	12     & car(Kolosov, Brand, \_, Price) = car(Kryat, porshe, blue, 7500000)\par{}Унификация неуспешна - аргументы не унифицируются                                                                                                                                                     &  \par{}Переход к следуюшему предложению                                                                                                   \\ 
+	\hline
+	13     & …                                                                                                                                                                                                                                                                              & …                                                                                                                                             \\ 
+	\hline
+	14     & phone\_record(Surname, ``89675849301``, \_) = phone\_record(Kryat, ``85886893892``, address(…))\par{}Унификация неуспешна - аргументы не унифицируются                                                                                                      & Резольвента:\par{}phone\_record(Surname, ``89675849301``, \_), \par car(Surname, Brand, \_, Price)\par  \par{}Переход к следуюшему предложению                                                                                                   \\ 
+	\hline
+	15     & …                                                                                                                                                                                                                                                                              & …                                                                                                                                             \\ 
+	\hline
+	16     &  car\_by\_number(``89675849301``, Surname, Brand, Price) = info\_by\_surname\_city(Surname, City, Street, Bank, Phone\_number)\par{}Унификация неуспешна - функторы не равны                                                                                                                & Резольвента:  car\_by\_number(``89675849301``, Surname, Brand, Price)\par  \par{}Переход к следуюшему предложению                                                                                                   \\ 
+	\hline
+	17     & …                                                                                                                                                                                                                                                                              & …                                                                                                                                             \\ 
+	\hline
+	18     &                                                                                                                                                                                                                                                                                & Все предложения проанализированы. Резольвента пуста. Ответ найден                                                                             \\
+	\hline
+\end{longtable}
+
+\quad Для info\_by\_surname\_city(Kolosov, City, Street, Bank, Phone\_number).
+
+% \usepackage{array}
+% \usepackage{longtable}
+
+
+\begin{longtable}{|>{\hspace{0pt}}m{0.04\linewidth}|>{\hspace{0pt}}m{0.524\linewidth}|>{\hspace{0pt}}m{0.374\linewidth}|} 
+	\hline
+	№ шага & Сравниваемые термы;резултат;подстановка(если есть)                                                                                                                                                                                                                                                                & Дальнейшие действия: прямой ход или                                                                                                                                \endfirsthead 
+	\hline
+	1      & info\_by\_surname\_city(Kolosov, City, Street, Bank, Phone\_number) = phone\_record(Kolosov, ``89675849301`` address(moscow, Pushkina, 5, 61))\par{}Унификация неуспешна - функторы не равны                                                                                                                        & Резольвента: info\_by\_surname\_city(Kolosov, City, Street, Bank, Phone\_number)\par{} \par{}Переход к следующему предложению                                                     \\ 
+	\hline
+	2      & …                                                                                                                                                                                                                                                                                                                 & …                                                                                                                                                                      \\ 
+	\hline
+	3      & info\_by\_surname\_city(Kolosov, City, Street, Bank, Phone\_number) = car(Kolosov, audi, grey, 4500000)\par{}Унификация неуспешна - функторы не равны                                                                                                                                                                           &  \par{}Переход к следующему предложению                                                                                                                            \\ 
+	\hline
+	4      & …                                                                                                                                                                                                                                                                                                                 & …                                                                                                                                                                      \\ 
+	\hline
+	5      & info\_by\_surname\_city(Kolosov, City, Street, Bank, Phone\_number) = depositor(Kolosov, tinkoff, 56, 100000)\par{}Унификация неуспешна~- функторы не равны                                                                                                                                                                     &  \par{}Переход к следующему предложению                                                                                                                            \\ 
+	\hline
+	6      & …                                                                                                                                                                                                                                                                                                                 & …                                                                                                                                                                      \\ 
+	\hline
+	7      & info\_by\_surname\_city(Kolosov, City, Street, Bank, Phone\_number) =  car\_by\_number( phone_number, surname, brand, price)\par{}Унификация неуспешна~- функторы не равны                                                                                                                                                                   &  \par{}Переход к следующему предложению                                                                                                                            \\ 
+	\hline
+	8      & info\_by\_surname\_city(Kolosov, City, Street, Bank, Phone\_number) = info\_by\_surname\_city(Surname, City, Street, Bank, Phone\_number)\par{}Унификация успешна\par{}Подстановка: \{Surname=Kolosov, City=Ciyt, Street=Street, Bank=Bank, Phone\_number=Phone\_number\}                                                                           & Резольвента:\par{}phone\_record(Kolosov, Phone\_number, address(City, Street, \_, \_)) depositor(Surname, Bank, \_, \_)\par{}Прямой ход                                     \\ 
+	\hline
+	9      & phone\_record(Kolosov, Phone\_number, address(City, Street, \_, \_)) = phone\_record(Kolosov, ``89675849301``, address(moscow, Pushkina, 5, 61))\par{}Унификация успешна\par{}Подстановка: \{Surname = Kolosov, Phone\_number = ``89675849301``, City=moscow, Street=Pushkina, Bank=Bank\} & Резольвента: depositor(Surname, Bank, \_, \_)\par{}Прямой ход                                                                                                          \\ 
+	\hline
+	10     & depositor(Kolosov, Bank, \_, \_) = phone\_record(Kolosov, ``89675849301``, address(moscow, Pushkina, 5, 61))\par{}Унификация неуспешна - функторы не равны                                                                                                                                          &  \par{}Переход к следующему предложению                                                                                                                            \\ 
+	\hline
+	11     & …                                                                                                                                                                                                                                                                                                                 & …                                                                                                                                                                      \\ 
+	\hline
+	12     & depositor(Kolosov, Bank, \_, \_) = depositor(Kolosov, tinkoff, 56, 100000)\par{}Унификация успешна\par{}Подстановка \{Surname=Kolosov, City=moscow, Street=Pushkina, Bank=tinkoff, Phone\_number=``89675849301``\}                                                                               & Вывод\par{}Surname=Kolosov, City=moscow, Street=Pushkina, Bank=tinkoff, Phone\_number=``89675849301``\par{} \par{}Переход к следующему предложению  \\ 
+	\hline
+	13     & depositor(Kolosov, Bank, \_, \_) = depositor(Kryat, vtb, 24, 200000)\par{}Унификация неуспешна - аргументы не унифицируются                                                                                                                                                                                     &  \par{}Переход к следующему предложению                                                                                                                            \\ 
+	\hline
+	14     & …                                                                                                                                                                                                                                                                                                                 & …                                                                                                                                                                      \\ 
+	\hline
+	15     & phone\_record(Kolosov, Phone\_number, address(City, Street, \_, \_)) = phone\_record(Kryat, ``+799119494951`` address(balshiha, Pervomay, 11, 89))\par{}Унификация неуспешна - аргументы не унифицируются                                                                                                       & Резольвента:\par{}phone\_record(Kolosov, Phone\_number, address(City, Street, \_, \_))\par depositor(Surname, Bank, \_, \_)\par  \par{}Переход к следующему предложению                                                                                                                            \\ 
+	\hline
+	16     & …                                                                                                                                                                                                                                                                                                                 & …                                                                                                                                                                      \\ 
+	\hline
+	17     & info\_by\_surname\_city(Kolosov, City, Street, Bank, Phone\_number) = carBySurname(Surname, Brand)\par{}Унификация неуспешна - функторы не равны                                                                                                                                                                                  & Резольвента: \par{}info\_by\_surname\_city(Kolosov, City, Street, Bank, Phone\_number)\par{}  \par{}Переход к следующему предложению                                                                                                                            \\ 
+	\hline
+	18     &                                                                                                                                                                                                                                                                                                                   & Все предложения проанализированы. Резольвента пуста. Ответ найден                                                                                                      \\
+	\hline
+\end{longtable}
+
+\quad Для car\_by\_number(``89675849301``, Surname, Brand, Price).
+
+
+\begin{longtable}{|>{\hspace{0pt}}m{0.04\linewidth}|>{\hspace{0pt}}m{0.559\linewidth}|>{\hspace{0pt}}m{0.342\linewidth}|} 
+	\hline
+	№ шага & Сравниваемые термы;резултат;подстановка(если есть)                                                                                                                                                                                               & Дальнейшие действия: прямой ход или                                                                                    \endfirsthead 
+	\hline
+	1      & car\_brand\_by\_number(``89675849301``, Brand) = phone\_record(Kolosov, ``89675849301`` address(moscow, Pushkina, 5, 61))\par{}Унификация неуспешна - функторы не равны                                                             & Резольвента: car\_brand\_by\_number(``89675849301``, Brand)\par{} \par{}Переход к следующему предложению               \\ 
+	\hline
+	2      & …                                                                                                                                                                                                                                                & …                                                                                                                          \\ 
+	\hline
+	3      & car\_brand\_by\_number(``89675849301``, Brand) = car(Kolosov, audi, grey, 4500000)\par{}Унификация неуспешна - функторы не равны                                                                                                                &  \par{}Переход к следующему предложению                                                                                \\ 
+	\hline
+	4      & …                                                                                                                                                                                                                                                & …                                                                                                                          \\ 
+	\hline
+	5      & car\_brand\_by\_number(``89675849301``, Brand) = depositor(Kolosov, tinkoff, 56, 100000)\par{}Унификация неуспешна~- функторы не равны                                                                                                          &  \par{}Переход к следующему предложению                                                                                \\ 
+	\hline
+	6      & …                                                                                                                                                                                                                                                & …                                                                                                                          \\ 
+	\hline
+	7      & car\_brand\_by\_number(``89675849301``, Brand) =  car\_by\_number(Phone\_number, Surname, Brand, Price)\par{}Унификация неуспешна~- функторы не равны                                                                                                        &  \par{}Переход к следующему предложению                                                                                \\ 
+	\hline
+	8      & car\_brand\_by\_number(``89675849301``, Brand) = info\_by\_surname\_city(Surname, City, Street, Bank, Phone\_number)\par{}Унификация неуспешна~- функторы не равны                                                                                               &  \par{}Переход к следующему предложению                                                                                \\ 
+	\hline
+	9      & car\_brand\_by\_number(``89675849301``, Brand) = car\_brand\_by\_number(Phone\_number, Brand)\par{}Унификация успешна\par{}Подстановка: \{Phone\_number=``89675849301``, Brand=Brand\}                                                                 & Резольвента:\par{} car\_by\_number(``89675849301``, \_, Brand, \_)\par{}Прямой ход                                      \\ 
+	\hline
+	10     &  car\_by\_number(``89675849301``, \_, Brand, \_) =~phone\_record(Kolosov, ``89675849301`` address(moscow, Pushkina, 5, 61))\par{}Унификация неуспешна - функторы не равны                                                        &  \par{}Переход к следующему предложению                                                                                \\ 
+	\hline
+	11     & …                                                                                                                                                                                                                                                & …                                                                                                                          \\ 
+	\hline
+	12     &  car\_by\_number(``89675849301``, \_, Brand, \_)~ =  car\_by\_number(Phone\_number, Surname, Brand, Price)\par{}Унификация успешна\par{}Подстановка \{Phone\_number=``89675849301``, Brand=Brand\}                                               & Резольвента:\par{}phone\_record(Surname, ``89675849301``, \_)\par{}car(Surname, Brand, \_, Price)\par{}Прямой ход  \\ 
+	\hline
+	13     & phone\_record(Surname, ``89675849301``, \_) =~phone\_record(Kolosov, ``89675849301`` address(moscow, Pushkina, 5, 61))\par{}Унификация успешна\par{}Подстановка: \{Phone\_number = ``89675849301``, Brand=Brand\} & Резольвента:\par{}car(Kolosov, Brand, \_, Price)\par{}Прямой ход                                                           \\ 
+	\hline
+	14     & car(Kolosov, Brand, \_, Price)~=~phone\_record(Kolosov, ``89675849301`` address(moscow, Pushkina, 5, 61))\par{}Унификация неуспешна - функторы не равны                                                                             &  \par{}Переход к следующему предложению                                                                                \\ 
+	\hline
+	15     & …                                                                                                                                                                                                                                                & …                                                                                                                          \\ 
+	\hline
+	16     & car(Kolosov, Brand, \_, Price) = car(Kolosov, audi, grey, 4500000)\par{}Унификация успешна\par{}Подстановка: \{Phone\_number = ``89675849301``, Brand=audi\}                                                                          & Прямой ход                                                                                                                 \\ 
+	\hline
+	17     & car(Kolosov, Brand, \_, Price) = car(Kryat, porshe, blue, 7500000)\par{}Унификация неуспешна - функторы не равны                                                                                                                                &  \par{}Переход к следующему предложению                                                                                \\ 
+	\hline
+	18     & ...                                                                                                                                                                                                                                              & ...                                                                                                                        \\ 
+	\hline
+	19     & phone\_record(Surname, ``89675849301``, \_) =~phone\_record(Kryat, ``+799119494951 address(balshiha, Pervomay, 11, 89))\par{}Унификация неуспешна - аргументы не унифицируются~~\par{}                                                        & Резольвента:\par{}phone\_record(Surname, ``89675849301``, \_)\par{}car(Surname, Brand, \_, Price)\par{} \par{}Переход к следующему предложению                                                                                \\ 
+	\hline
+	20     & ...                                                                                                                                                                                                                                              & ...                                                                                                                        \\ 
+	\hline
+	21     &                                                                                                                                                                                                                                                  & Все предложения проанализированы. Резольвента пуста. Ответ найден                                                          \\
+	\hline
+\end{longtable}
+
+
+
+\section{Вопросы}
+
+\subsection{Что такое терм?}
+
+\quad Термы – слова, которые описывают сущности изучаемого мира.
+
+\subsection{Что такое предикат в матлогике (математике)?}
+
+\quad Предикат – функция с множеством значений {0, 1}, определенная на множестве $M = M_1 * M_2 * … * M_n$.
+
+\subsection{Что описывает предикат в Prolog?}
+Предикаты – слова, которые описывают атрибуты/свойства сущностей, их поведение и отношение.
+
+\subsection{Назовите виды предложений в программе и привидите примеры таких предложений из Вашей программы. Какие предложения являются основными,
+а какие - не основными? Каковы: синтаксис и семантика(формальный смысл) этих предложений(основных и неосновных)?}
+
+\begin{itemize}
+	\item Факты – утверждения, которые всегда истинны. Предложения с пустым телом. Пример: phone\_record(Blohin,  ``89111234564``, address(mytishi, Red, 20, 27)).
+	\item Правила- утверждения, истинность которых зависит от некоторых условий. Имеют заголовок и непустое тело. Пример:
+	\begin{lstlisting}[language=Prolog]
+	info_by_surname_city(Surname, City, Street, Bank, Phone_number) :-
+	phone_record(Surname,Phone_number,
+	address(City, Street, _, _)),
+	depositor(Surname, Bank,_, _).
+	\end{lstlisting}
+	\item Вопросы – с их помощью пользователь спрашивает систему о том, какие утверждения являются истинными. Предложения, состоящие только из тела.
+	Пример:  car\_by\_number(``89675849301``, Surname, Brand, Price).
+\end{itemize}
+
+Если составные термы, факты, правила и вопросы не содержат переменных, то они называются основными. 
+Составные термы, факты, правила и вопросы в момент фиксации в программе могут содержать переменные, тогда они называются неосновными.
+
+\subsection{Каковы назначение, виды и особенности использования переменных в программе на Prolog? Какое предложение БЗ сформулировано в более общей
+-- абстрактной форме: содержащее или не содержащее переменных?}
+
+Переменные обозначаются идентификаторами, начинающимися с заглавной буквы. 
+
+Переменные обозначают некоторый неизвестный объект из некоторого множества объектов. 
+
+В момент фиксации утверждений в программе не имеют значения. Значения для переменных могут быть установлены системой только в процессе поиска ответа на вопрос, т.е. реализации программы.
+
+Виды переменных:
+\begin{itemize}
+	\item Именованные – есть имя – комбинация символов;
+	\item Анонимные – нет имени – символ подчеркивания;
+	\item Связанная (конкретизирована) – имеется объект, который в данный момент обозначает данная переменная;
+	\item Свободная (не конкретизирована).
+\end{itemize}
+
+\textbf{Какое предложение БЗ сформулировано в более общей – абстрактной форме: содержащее или не содержащее переменных?} -- Не содержащее переменных.
+
+
+\subsection{Что такое подстановка?}
+Подстановка - множество пар вида ${X_i = t_i}$, где $X_i$ – переменная, а $t_i$ – терм.
+
+\subsection{Что такое пример терма? Как и когда строится? Как вы думаете, система строит и хранит примеры?}
+Терм В называется примером терма А, если существует такая подстановка $\theta$, что $В=А\theta$, где $А\theta$ – результат применения подстановки к терму.
+
+Примеры строятся во время алгоритма унификации. 
+
+
+\end{document}

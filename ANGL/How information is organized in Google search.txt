@@ -1,0 +1,26 @@
+How information is organized in Google Search
+To help users find the information they need quickly, our robots collect information on hundreds of billions of pages and organize it in a search index.
+Google Search Basics
+During the next crawl, along with the list of web addresses obtained during the previous crawl, sitemaps provided by the site owners are used. As the robot visits sites, it follows the links indicated on them to other pages. He pays special attention to new and changed sites, as well as broken links. It independently determines which sites to crawl, how often to do it, and how many pages to select on each of them.
+Search Console allows site owners to specify exactly how their assets should be crawled, such as providing detailed instructions on how to process pages, requesting them to be rescanned, and blocking crawling using a robots.txt file. Google does not increase the frequency of crawling individual resources for a fee. To maximize search results for users, all site owners receive the same tools.
+
+Finding information by scanning
+The Internet is like a library that contains billions of titles and is constantly growing, but does not have a centralized book-keeping system. To find publicly accessible pages, we use special software called crawlers. Robots parse pages and follow links to them - just like regular users. They then send the resource information to Google's servers.
+
+Organizing information using indexing
+During crawling, our systems process the content of the pages in the same way as browsers do, and log data on keywords and newness of the content, and then create a search index based on them.
+
+The Google Search Index contains hundreds of billions of pages. Its volume is well over 100 million gigabytes. It is like an index at the end of a book, with a separate entry for each word on all indexed pages. During indexing, data about the page is added to the records for all the words that it contains.
+
+ According to Larry Page's description, the ideal search engine understands exactly the meaning of the query and gives exactly the results that are needed. Our research shows that speed of results is also important for users. We've accomplished a lot with Google Search: it quickly finds the information you need and presents it in the most appropriate format.
+
+If the query is weather related, the results page will show the weather forecast, not just links to weather sites. The same is with travel routes: in addition to the list of resources, in response to the request "How to get to Kazan airport" a map with the necessary information will appear. This is especially important for mobile devices, since the speed of the Internet on them is often low and transitions to other sites can take a lot of time.
+
+Thousands of engineers and scientists are involved in optimizing algorithms and developing new search tools. Below you will find information about some of the innovative solutions. These are just examples of how we're improving Google Search, with 3,234 changes made to it in 2018 alone.
+
+Building a Knowledge Web is a more modern way of identifying user interests compared to keyword matching. To do this, we organize not only data by page, but also other types of information. Currently, Google Search allows you to find the text you want in millions of books from the largest libraries, find out the timetable for public transportation, and explore data from publicly available sources such as the World Bank website.
+With the huge amount of information available on the Internet, it is almost impossible to find the information you need without some kind of solution that would help organize it. To help users get relevant and useful results in a fraction of a second, Google's ranking tools rank hundreds of billions of pages in the search index.
+
+These ranking systems include a variety of algorithms. They take many factors into account to give you the most useful information, including your search query, the relevance and usability of the pages found, their reliability, and your location and settings. The weight of each factor will vary depending on the nature of your request. For example, the date the content was published is given more importance when you are looking for topical news, and less if you are interested in a dictionary definition.
+
+To ensure our search algorithms meet the highest standards, we adhere to an established online testing procedure, which involves thousands of third-party search engine quality assessors from different countries and received additional training. They follow precise instructions that reflect our goals for search algorithms and are available for everyone to review.

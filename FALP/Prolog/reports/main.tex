@@ -1,0 +1,203 @@
+\documentclass[12pt,a4paper,oneside]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{titlesec, blindtext, color}
+\usepackage{tabularx}
+\usepackage{subcaption}
+\usepackage{listings}
+\usepackage{tikz,pgfplots}
+\geometry{pdftex, left = 2cm, right = 2cm, top = 2.5cm, bottom = 2.5cm}
+% Для листинга кода:
+\lstset{
+	basicstyle=\footnotesize\ttfamily,
+	breakatwhitespace=true,
+	breaklines=true,
+	commentstyle=\color{gray},
+	frame=single,
+	keywordstyle=\color{blue},
+	stringstyle=\color{red},
+	tabsize=8
+}
+\titleformat{\chapter}[hang]{\Huge\bfseries}{\thechapter.\textcolor{gray75}\hsp}{0pt}{\Huge\bfseries}
+\newcommand{\specchapter}[1]{\chapter*{#1}\addcontentsline{toc}{chapter}{#1}}
+\newcommand{\specsection}[1]{\section*{#1}\addcontentsline{toc}{section}{#1}}
+\newcommand{\specsection}[1]{\section*{#1}\addcontentsline{toc}{section}{#1}}
+\geometry{pdftex, left = 2cm, right = 2cm, top = 2.5cm, bottom = 2.5cm}
+\begin{document}
+\thispagestyle{empty}
+\noindent \begin{minipage}{0.15\textwidth}
+	\includegraphics[width=\linewidth]{b_logo}
+\end{minipage}
+\noindent\begin{minipage}{0.9\textwidth}\centering
+	\textbf{Министерство науки и высшего образования Российской Федерации}\\
+	\textbf{Федеральное государственное бюджетное образовательное учреждение высшего образования}\\
+	\textbf{«Московский государственный технический университет имени Н.Э.~Баумана}\\
+	\textbf{(национальный исследовательский университет)»}\\
+	\textbf{(МГТУ им. Н.Э.~Баумана)}
+\end{minipage}
+\noindent\rule{18cm}{3pt}
+\newline\newline
+\noindent ФАКУЛЬТЕТ $\underline{\textbf{«ИНФОРМАТИКА И СИСТЕМЫ УПРАВЛЕНИЯ»}}$ \newline\newline
+\noindent КАФЕДРА $\underline{\textbf{«ПРОГРАММНОЕ ОБЕСПЕЧЕНИЕ ЭВМ И ИНФОРМАЦИОННЫЕ }$\newline\newline $\underline{\textbf{ТЕХНОЛОГИИ»(ИУ7)}}}$\newline\newline
+\noindent НАПРАВЛЕНИЕ ПОДГОТОВКИ $\underline{\textbf{09.03.04 ПРОГРАММНАЯ ИНЖЕНЕРИЯ}}$\newline\newline\newline\newline\newline\newline\newline
+\begin{center}
+    \begin{flushright}
+    \Large\textbf{ОТЧЕТ}\newline
+	\Large\textbf{по лабораторной работе № 13}\newline
+	\end{flushright}
+\end{center}
+\noindent\textbf{Дисциплина:} $\underline{\text{Функциональное и логическое программирование}}$\newline\newline\newline\newline\newline\newline\newline\newline
+\begin{tabular}{lcp{5em}lp{2em}l}
+	\noindent\textbf{Студент} &  $\underline{\text{ИУ7-62Б~~}}$ &             &\hspace{1cm} & & $\underline{\text{Б.М.Блохин}}$ \\\cline{4-3}
+	 & (Группа) & &(Подпись,дата)  & & (И.О.Фамилия) \\
+	 & & & & &\\
+	\noindent\textbf{Преподаватель} &  & &\hspace{1cm} & &$\underline{\text{Н.Б.Толпинская~~~~}}$ \\\cline{4-3} 
+	 &  & & (Подпись,дата)  & &(И.О.Фамилия) \\
+    \end{tabular}
+\begin{center}
+	\vfill
+	Москва,\the\year
+\end{center}
+\newpage
+
+
+\chapter*{Задачи}
+\quad Составить программу, т.е. модель предметной области – базу знаний, объединив в ней информацию – знания:
+
+«Телефонный справочник»: Фамилия, №тел, Адрес – структура (Город, Улица, №дома, №кв),
+
+«Автомобили»: Фамилия\_владельца, Марка, Цвет, Стоимость, и др.,
+
+«Вкладчики банков»: Фамилия, Банк, счет, сумма, др.
+
+Владелец может иметь несколько телефонов, автомобилей, вкладов (Факты).
+Используя правила, обеспечить возможность поиска:
+
+а) По № телефона найти: Фамилию, Марку автомобиля, Стоимость автомобиля (может быть несколько),
+
+в) Используя сформированное в пункте а) правило, по № телефона найти: только Марку автомобиля (автомобилей может быть несколько),
+
+Используя простой, не составной вопрос: по Фамилии (уникальна в городе, но в разных городах есть однофамильцы) и Городу проживания найти: Улицу проживания, Банки, в которых есть вклады и №телефона.
+
+Для задания1 и задания2: 
+
+Для одного из вариантов ответов, и для а) и для в), описать словесно порядок поиска ответа на вопрос, указав, как выбираются знания, и, при этом, для каждого этапа унификации, выписать подстановку – наибольший общий унификатор, и соответствующие примеры термов.
+
+
+\begin{lstlisting}[language=Prolog]
+domains
+surname, telephone, city, street = symbol.
+home_number, flat_number = integer.
+address = address(city,
+street,
+home_number,
+flat_number).
+
+car_brand, car_color = symbol.
+car_price, car_year = integer.
+about_car = about_car(car_brand,
+car_color,
+car_price,
+car_year).
+
+bank_name = symbol.
+bank_account, bank_amount = integer.
+dep_info = dep_info(bank_name,
+bank_account,
+bank_amount).
+
+predicates
+phone_record(surname, telephone, address).
+car_owner(surname, about_car).
+bank_owner(surname, dep_info).
+car_by_number(telephone, surname, car_brand, car_price).
+car_brand_by_number(telephone, car_brand).
+info_by_surname_city(surname, city, street, bank_name, telephone).
+
+clauses
+phone_record("Gerasimenko", "85886893800", address("Moscow", "Auf", 17, 33)). 
+phone_record("Kryat", "85886893892", address("Moscow", "Kolokol", 12, 33)). 
+phone_record("Popov", "89932110022", address("Minsk", "Moskovskaya", 94, 11)). 
+phone_record("Blohin", "89265291378", address("Moscow", "Varsh", 52, 9)).
+phone_record("Blohin", "89115291378", address("Saratov", "Moskovskaya", 5, 9)).
+car_owner("Paklin",
+about_car("Cooper", "Red", 2000001, 2012)).
+car_owner("Kryat",
+about_car("Mitsubishi", "Grey", 289731, 2006)).
+car_owner("Blohin",
+about_car("Opel", "Grey", 290000, 2007)).
+car_owner("Blohin",
+about_car("Audi", "Red", 2900000, 2015)).
+bank_owner("Kolosov",
+dep_info("Sber", 1, 100000)).
+bank_owner("Kolosov",
+dep_info("VTB", 5, 200000)).
+bank_owner("Popov",
+dep_info("Rocket", 2, 10000000)).
+bank_owner("Blohin",
+dep_info("Gazprom", 4, 400000)).
+
+car_by_number(Phone_num, Surname, Car_brand, Car_price):-
+phone_record(Surname, Phone_num,_),
+car_owner(Surname, about_car(Car_brand, _, Car_price, _)).
+
+car_brand_by_number(Phone_num, Car_brand):-
+car_by_number(Phone_num, _, Car_brand, _).
+
+info_by_surname_city(Surname, City, Street, Bank, Phone_num):-
+phone_record(Surname, Phone_num, address(City, Street, _, _)),
+bank_owner(Surname, dep_info(Bank, _, _)).
+
+goal
+%car_by_number("89265291378", Surname, Car_brand, Car_price).
+%car_brand_by_number("85886893892", Car_brand).
+info_by_surname_city("Blohin", "Saratov", Street, Bank, Phone_num).
+\end{lstlisting}
+
+\chapter*{Контрольные вопросы}
+\subsection*{Что такое терм?}
+\quad Термы – слова, которые описывают сущности изучаемого мира.
+\subsection*{Что такое предикат в матлогике (математике)?}
+\quad Предикат – функция с множеством значений ${0, 1}$, определенная на множестве $M = M_1 * M_2 * … * M_n$.
+\subsection*{Что описывает предикат в Prolog?}
+\quad Предикаты – слова, которые описывают атрибуты/свойства сущностей, их поведение и отношение.
+\subsection*{Виды предложений в программе, примеры таких предложений.}
+\quad Факты – утверждения, которые всегда истинны. Предложения с пустым телом.
+
+Правила- утверждения, истинность которых зависит от некоторых условий. Имеют голову и непустое тело.
+
+Вопросы – с их помощью пользователь спрашивает систему о том, какие утверждения являются истинными. Предложения, состоящие только из тела.
+\subsection*{Какие предложения являются основными, а какие – не основными?}
+\quad Если составные термы, факты, правила и вопросы не содержат переменных, то они называются основными. 
+
+Составные термы, факты, правила и вопросы в момент фиксации в программе могут содержать переменные, тогда они называются неосновными.
+
+\subsection*{Каков синтаксис этих предложений} 
+\quad Переменные обозначаются идентификаторами, начинающимися с заглавной буквы. 
+\subsection*{Каково назначение переменных}
+\quad Переменные обозначают некоторый неизвестный объект из некоторого множества объектов. 
+\subsection*{Особенности использования переменных в программе на Prolog?}
+\quad В момент фиксации утверждений в программе не имеют значения. Значения для переменных могут быть установлены системой только в процессе поиска ответа на вопрос, т.е. реализации программы.
+\subsection*{Виды переменных}
+\begin{itemize}
+    \item Именованные – есть имя – комбинация символов.
+    \item Анонимные – нет имени – символ подчеркивания.
+    \item Связанная (конкретизирована) – имеется объект, который в данный момент обозначает данная переменная.
+    \item Свободная (не конкретизирована)
+\end{itemize}
+
+\subsection*{Какое предложение БЗ сформулировано в более общей – абстрактной форме: содержащее или не содержащее переменных?}
+\quadНе содержащее переменных.
+\subsection*{Что такое подстановка?}
+\quadПодстановка - множество пар вида ${X_i = t_i}$, где $X_i$ – переменная, а $t_i$ – терм.
+\subsection*{Что такое пример терма?}
+\quad Терм В называется примером терма А, если существует такая подстановка Θ, что B = $A\Theta$, где $A\Theta$ – результат применения подстановки к терму. 
+\subsection*{Как и когда строится?}
+\quad Примеры строятся во время алгоритма унификации.
+
+
+
+\end{document}
